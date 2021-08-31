@@ -1,0 +1,17 @@
+- name: "Installing haproxy"
+  package:
+          name: haproxy
+          state: present
+
+- name: "Copying Configuration files"
+  template:
+          src: "templates/haproxy.cfg"
+          dest: "/etc/haproxy/haproxy.cfg"
+
+- selinux:
+        policy: targeted
+        state: permissive
+
+- service: 
+        name: "haproxy"
+        state: restarted
